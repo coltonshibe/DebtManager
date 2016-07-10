@@ -1,6 +1,10 @@
-public class Main {
+import java.util.Date;
 
+public class Main {
+    public Main () {}
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        Date date1 = DateUtil.setDateFromString("24092011");
+
+        System.out.println(DateUtil.daysBetweenDates(date1, DateUtil.getCurrentDate()));
     }
 }
