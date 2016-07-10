@@ -17,7 +17,11 @@ public class InterestRate  extends BaseMethods {
             }
             else
             {
-                if(loan1.getInterestRate() > loan.getInterestRate())
+                if(loan.getPrincipalBalance() < 0.0)
+                {
+                    loan = loan1;
+                }
+                else if(loan1.getInterestRate() > loan.getInterestRate())
                 {
                     loan = loan1;
                 }
