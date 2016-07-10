@@ -1,4 +1,5 @@
-import java.util.Calendar;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 public class Loan {
@@ -7,8 +8,11 @@ public class Loan {
     private Date daysFromLastPayment;
     private Double payoffAmount;
     private Double principalBalance;
-    private Integer compound;
+    private Integer compound = 0;
     private Double interestRate;
+    private Double totalInterestPaid = 0.0;
+    private LoanType loanType;
+    private Double unpaidInterest = 0.0;
 
     public Loan () {}
 
@@ -16,12 +20,18 @@ public class Loan {
         return loanType;
     }
 
+    public void addToTotalInterestPaid(Double amount)
+    {
+        this.totalInterestPaid += amount;
+    }
+
+    public Double getTotalInterestPaid() {
+        return totalInterestPaid;
+    }
+
     public void setLoanType(LoanType loanType) {
         this.loanType = loanType;
     }
-
-    private LoanType loanType;
-
 
     public Date getStartDate() {
         return startDate;
@@ -29,6 +39,7 @@ public class Loan {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+        setDaysFromLastPayment(startDate);
     }
 
     public Double getPayoffAmount() {
@@ -70,4 +81,38 @@ public class Loan {
     public void setDaysFromLastPayment(Date daysFromLastPayment) {
         this.daysFromLastPayment = daysFromLastPayment;
     }
+
+    public Double getUnpaidInterest() {
+        return this.unpaidInterest;
+    }
+
+    public void clearUnpaidInterest()
+    {
+        this.unpaidInterest = 0.0;
+    }
+
+    public void addUnpaidInterest()
+    {
+        this.unpaidInterest += getDailyInterestAmount();
+    }
+
+    public void makePayment(Double amount){
+        Double totalLeft = amount - getUnpaidInterest();
+        clearUnpaidInterest();
+        setPrincipalBalance((this.principalBalance - totalLeft));
+    }
+
+    public Double getDailyInterestAmount()
+    {
+       return round(((getPrincipalBalance() * getInterestRate())/ (double) getCompound()), 2);
+    }
+
+    public double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
 }

@@ -1,10 +1,48 @@
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public Main () {}
-    public static void main(String[] args) {
-        Date date1 = DateUtil.setDateFromString("24092011");
 
-        System.out.println(DateUtil.daysBetweenDates(date1, DateUtil.getCurrentDate()));
+    private static List<Loan> loans = new ArrayList<>();
+    public static void main(String[] args) {
+        makeLoans();
+    //    DailyInterestAmount dailyInterestAmount = new DailyInterestAmount();
+        InterestRate interestRate = new InterestRate();
+
+     //   dailyInterestAmount.setLoanList(loans);
+        interestRate.setLoanList(loans);
+
+     //   dailyInterestAmount.setPaymentAmount(500.00);
+        interestRate.setPaymentAmount(500.00);
+
+    //    dailyInterestAmount.setPaymentRateInDays(7);
+        interestRate.setPaymentRateInDays(7);
+
+   //     dailyInterestAmount.simulate();
+        interestRate.simulate();
+   //     System.out.println(dailyInterestAmount.getTotalAmountPaid());
+        System.out.println(interestRate.getTotalAmountPaid());
+
+    }
+
+
+    private static void makeLoans(){
+
+        Loan loan = new Loan();
+        loan.setPrincipalBalance(14000.00);
+        loan.setCompound(365);
+        loan.setInterestRate(0.0345);
+        loan.setStartDate(DateUtil.getCurrentDate());
+        loans.add(loan);
+
+        loan = new Loan();
+        loan.setPrincipalBalance(7000.00);
+        loan.setCompound(365);
+        loan.setInterestRate(0.0468);
+        loan.setStartDate(DateUtil.getCurrentDate());
+        loans.add(loan);
+
+
     }
 }

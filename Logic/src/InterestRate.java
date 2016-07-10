@@ -1,19 +1,28 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class InterestRate {
-
-    private List<Loan> loanList = new ArrayList<>();
+public class InterestRate  extends BaseMethods {
 
     public InterestRate() {
     }
 
-    public List<Loan> getLoanList() {
-        return loanList;
-    }
+    @Override
+    public Loan figureOutLoanToPayOff(){
+        Loan loan = new Loan();
+        for(Loan loan1: getLoanList()){
 
-    public void setLoanList(List<Loan> loanList) {
-        this.loanList = loanList;
+            if(loan.getCompound() == 0)
+            {
+                loan = loan1;
+            }
+            else
+            {
+                if(loan1.getInterestRate() > loan.getInterestRate())
+                {
+                    loan = loan1;
+                }
+            }
+        }
+        return loan;
     }
-
 }
