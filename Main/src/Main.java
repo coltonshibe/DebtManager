@@ -7,23 +7,23 @@ public class Main {
     private static List<Loan> loans = new ArrayList<>();
     private static List<Loan> loanss = new ArrayList<>();
     public static void main(String[] args) {
-  //      makeLoans();
-    //    DailyInterestAmount dailyInterestAmount = new DailyInterestAmount();
+        makeLoans();
+        DailyInterestAmount dailyInterestAmount = new DailyInterestAmount();
         InterestRate interestRate = new InterestRate();
 
-    //    dailyInterestAmount.setLoanList(loans);
+        dailyInterestAmount.setLoanList(loans);
         makeLoanss();
         interestRate.setLoanList(loanss);
 
-   //     dailyInterestAmount.setPaymentAmount(500.00);
+        dailyInterestAmount.setPaymentAmount(500.00);
         interestRate.setPaymentAmount(500.00);
 
-    //    dailyInterestAmount.setPaymentRateInDays(7);
+        dailyInterestAmount.setPaymentRateInDays(7);
         interestRate.setPaymentRateInDays(7);
 
-    //    dailyInterestAmount.simulate();
+        dailyInterestAmount.simulate();
         interestRate.simulate();
-   //     System.out.println(dailyInterestAmount.getTotalAmountPaid());
+        System.out.println(dailyInterestAmount.getTotalAmountPaid());
         System.out.println(interestRate.getTotalAmountPaid());
 
     }

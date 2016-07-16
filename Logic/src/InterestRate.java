@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class InterestRate  extends BaseMethods {
 
     public InterestRate() {
@@ -17,11 +14,7 @@ public class InterestRate  extends BaseMethods {
             }
             else
             {
-                if(loan.getPrincipalBalance() < 0.0)
-                {
-                    loan = loan1;
-                }
-                else if(loan1.getInterestRate() > loan.getInterestRate())
+                if(loan1.getInterestRate() > loan.getInterestRate() && loan1.getPrincipalBalance() > 0.0 && loan.getPrincipalBalance() <= 0.0 )
                 {
                     loan = loan1;
                 }

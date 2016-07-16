@@ -67,17 +67,22 @@ public class BaseMethods {
         }
     }
 
-    public void makePayment(Loan loan)
+    public double makePayment(Loan loan)
     {
         if(loan.getPrincipalBalance() < getPaymentAmount())
         {
             this.totalAmountPaid += loan.getPrincipalBalance();
+            loan.makePayment(getPaymentAmount());
+            return loan.getPrincipalBalance();
         }
         else
         {
             this.totalAmountPaid += getPaymentAmount();
+            loan.makePayment(getPaymentAmount());
+            return 0.0;
         }
-        loan.makePayment(getPaymentAmount());
+
+
     }
 
     public Boolean isAllLoansPaidOff()
@@ -113,9 +118,14 @@ public class BaseMethods {
          }
             if(numberOfDays.equals(getPaymentRateInDays()))
             {
+                double  remainingAmount = 0.0;
                 numberOfDays=1;
                 Loan loan1 = figureOutLoanToPayOff();
-                makePayment(loan1);
+                remainingAmount =  makePayment(loan1);
+                if (remainingAmount == 0.0)
+                {
+                    makePayment(figureOutLoanToPayOff());
+                }
                 compound();
                 paidOffAllLoans = isAllLoansPaidOff();
             }
