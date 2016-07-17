@@ -122,7 +122,7 @@ public class BaseMethods {
                 numberOfDays=1;
                 Loan loan1 = figureOutLoanToPayOff();
                 remainingAmount =  makePayment(loan1);
-                if (remainingAmount == 0.0)
+                if (remainingAmount >= 0.0)
                 {
                     makePayment(figureOutLoanToPayOff());
                 }

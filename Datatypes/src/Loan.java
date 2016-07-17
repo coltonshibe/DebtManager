@@ -9,7 +9,7 @@ public class Loan {
     private Double payoffAmount;
     private Double principalBalance;
     private Integer compound = 0;
-    private Double interestRate;
+    private Double interestRate = 0.0;
     private Double totalInterestPaid = 0.0;
     private LoanType loanType;
     private Double unpaidInterest = 0.0;
@@ -96,10 +96,17 @@ public class Loan {
         this.unpaidInterest += getDailyInterestAmount();
     }
 
+    public void setUnpaidInterest (double amount) {
+        this.unpaidInterest = amount;
+    }
+
     public void makePayment(Double amount){
         Double totalLeft = amount - getUnpaidInterest();
         clearUnpaidInterest();
-        setPrincipalBalance((this.principalBalance - totalLeft));
+        if (totalLeft > 0.0)
+        {
+            setPrincipalBalance((this.principalBalance - totalLeft));
+        }
     }
 
     public Double getDailyInterestAmount()
